@@ -11,13 +11,12 @@ export const GET = async (request: Request) => {
   const water = params.get("water");
   const clean = params.get("clean");
 
-  const mochiyPopOneFontData = await fetch(
-    new URL("../../../public/assets/fonts/MochiyPopOne.ttf", import.meta.url)
-  ).then((res) => res.arrayBuffer());
+  //   const mochiyPopOneFontData = await fetch(
+  //     new URL("../../../public/assets/fonts/MochiyPopOne.ttf", import.meta.url)
+  //   ).then((res) => res.arrayBuffer());
 
-    const image =
-      "https://res.cloudinary.com/dplp5wtzk/image/upload/v1714883737/hamburger.png";
-
+  const image =
+    "https://res.cloudinary.com/dplp5wtzk/image/upload/v1714883737/hamburger.png";
 
   return new ImageResponse(
     (
@@ -153,13 +152,13 @@ export const GET = async (request: Request) => {
     {
       width: 1200,
       height: 630,
-      fonts: [
-        {
-          name: "Mochiy Pop One",
-          data: mochiyPopOneFontData,
-          style: "normal",
-        },
-      ],
+      //   fonts: [
+      //     {
+      //       name: "Mochiy Pop One",
+      //       data: mochiyPopOneFontData,
+      //       style: "normal",
+      //     },
+      //   ],
     }
   );
 };
