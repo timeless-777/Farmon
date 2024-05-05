@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { ImageResponse } from "next/og";
 import { Box } from "../../lib/ui";
 
@@ -16,9 +15,9 @@ export const GET = async (request: Request) => {
     new URL("../../../public/assets/fonts/MochiyPopOne.ttf", import.meta.url)
   ).then((res) => res.arrayBuffer());
 
-  const farmonImg = await fetch(
-    new URL("../../../public/assets/image/hamburger.png", import.meta.url)
-  ).then((res) => res.arrayBuffer());
+    const image =
+      "https://res.cloudinary.com/dplp5wtzk/image/upload/v1714883737/hamburger.png";
+
 
   return new ImageResponse(
     (
@@ -56,7 +55,7 @@ export const GET = async (request: Request) => {
           }}
         >
           <img
-            src={farmonImg}
+            src={image}
             width="300"
             alt="img2"
             style={{

@@ -1,9 +1,7 @@
 /** @jsxImportSource frog/jsx */
 
-import { Button, Frog, TextInput } from "frog";
+import { Button, Frog } from "frog";
 import { devtools } from "frog/dev";
-import { neynar } from "frog/hubs";
-import { neynar as neynarHub } from "frog/hubs";
 import { handle } from "frog/next";
 import { serveStatic } from "frog/serve-static";
 import { getFarmonData } from "../../lib/getFarmon";
@@ -20,7 +18,6 @@ type FarmonState = {
 const app = new Frog<{ State: FarmonState }>({
   assetsPath: "/",
   basePath: "/api",
-  hub: neynarHub({ apiKey: "NEYNAR_FROG_FM" }),
   verify: process.env.NODE_ENV === "development" ? "silent" : true,
   headers: {
     "Cache-Control": "max-age=0",
