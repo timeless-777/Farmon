@@ -4,10 +4,6 @@ import { Box } from "../../lib/ui";
 
 export const runtime = "edge";
 
-type State = {
-  count: number;
-};
-
 export const GET = async (request: Request) => {
   const { searchParams } = new URL(request.url);
   const fixedSearchParams = searchParams.toString().replace(/&amp%3B/g, "&");
@@ -18,10 +14,6 @@ export const GET = async (request: Request) => {
 
   const mochiyPopOneFontData = await fetch(
     new URL("../../../public/assets/fonts/MochiyPopOne.ttf", import.meta.url)
-  ).then((res) => res.arrayBuffer());
-
-  const ariBlkFontData = await fetch(
-    new URL("../../../public/assets/fonts/ariblk.ttf", import.meta.url)
   ).then((res) => res.arrayBuffer());
 
   const farmonImg = await fetch(
@@ -166,11 +158,6 @@ export const GET = async (request: Request) => {
         {
           name: "Mochiy Pop One",
           data: mochiyPopOneFontData,
-          style: "normal",
-        },
-        {
-          name: "AriBlk",
-          data: ariBlkFontData,
           style: "normal",
         },
       ],
