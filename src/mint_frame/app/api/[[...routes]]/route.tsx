@@ -1,72 +1,60 @@
 /** @jsxImportSource frog/jsx */
 
-import { Button, Frog, TextInput } from 'frog'
-import { devtools } from 'frog/dev'
-// import { neynar } from 'frog/hubs'
-import { handle } from 'frog/next'
-import { serveStatic } from 'frog/serve-static'
+import { Button, Frog } from "frog";
+import { devtools } from "frog/dev";
+import { neynar } from "frog/middlewares";
+import { neynar as neynarHub } from "frog/hubs";
+import { handle } from "frog/next";
+import { serveStatic } from "frog/serve-static";
+import abi from "../../utils/Farmon.json";
+
 
 const app = new Frog({
-  assetsPath: '/',
-  basePath: '/api',
-  // Supply a Hub to enable frame verification.
-  // hub: neynar({ apiKey: 'NEYNAR_FROG_FM' })
-})
+  assetsPath: "/",
+  basePath: "/api",
+  hub: neynarHub({ apiKey: "NEYNAR_FROG_FM" }),
+  verify: process.env.NODE_ENV === "development" ? "silent" : true,
+  headers: {
+    "Cache-Control": "max-age=0",
+  },
+});
 
-// Uncomment to use Edge Runtime
-// export const runtime = 'edge'
+app
+  .use(
+    neynar({
+      apiKey: "NEYNAR_FROG_FM",
+      features: ["interactor"],
+    })
+  )
+  .frame("/", async (c) => {
+    return c.res({
+      action: "/minted",
+      image: "/assets/image/mint.png",
+      intents: [
+        <Button.Transaction target={`/mint`}>
+          Mint
+        </Button.Transaction>,
+      ],
+    });
+  });
 
-app.frame('/', (c) => {
-  const { buttonValue, inputText, status } = c
-  const fruit = inputText || buttonValue
+app.transaction("/mint", async (c) => {
+  return c.contract({
+    abi: abi.abi,
+    chainId: "eip155:84532",
+    functionName: "safeMint",
+    to: "0xe577AFDB57c7D02c089D75F50f0999930A6f8ce6",
+  });
+});
+
+app.frame("/minted", async (c) => {
   return c.res({
-    image: (
-      <div
-        style={{
-          alignItems: 'center',
-          background:
-            status === 'response'
-              ? 'linear-gradient(to right, #432889, #17101F)'
-              : 'black',
-          backgroundSize: '100% 100%',
-          display: 'flex',
-          flexDirection: 'column',
-          flexWrap: 'nowrap',
-          height: '100%',
-          justifyContent: 'center',
-          textAlign: 'center',
-          width: '100%',
-        }}
-      >
-        <div
-          style={{
-            color: 'white',
-            fontSize: 60,
-            fontStyle: 'normal',
-            letterSpacing: '-0.025em',
-            lineHeight: 1.4,
-            marginTop: 30,
-            padding: '0 120px',
-            whiteSpace: 'pre-wrap',
-          }}
-        >
-          {status === 'response'
-            ? `Nice choice.${fruit ? ` ${fruit.toUpperCase()}!!` : ''}`
-            : 'Welcome!'}
-        </div>
-      </div>
-    ),
-    intents: [
-      <TextInput placeholder="Enter custom fruit..." />,
-      <Button value="apples">Apples</Button>,
-      <Button value="oranges">Oranges</Button>,
-      <Button value="bananas">Bananas</Button>,
-      status === 'response' && <Button.Reset>Reset</Button.Reset>,
-    ],
-  })
-})
+    image: "/assets/image/check.gif",
+  });
+});
 
-devtools(app, { serveStatic })
 
-export const GET = handle(app)
-export const POST = handle(app)
+devtools(app, { appFid: 227285, serveStatic });
+
+export const GET = handle(app);
+export const POST = handle(app);

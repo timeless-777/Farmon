@@ -72,5 +72,5 @@ slither contracts/HardhatFoundryERC721.sol
 
 | Contract | Contract Address | Explorer Link |
 | --- | --- | --- |
-| Farmon | `0x40AcB0E5E5BA146fDb7D124fd00cF55C8A9EE9d6` | [Blockscout](https://base-sepolia.blockscout.com/address/0x40AcB0E5E5BA146fDb7D124fd00cF55C8A9EE9d6) |
+| Farmon | `0xe577AFDB57c7D02c089D75F50f0999930A6f8ce6` | [Blockscout](https://base-sepolia.blockscout.com/address/0xe577AFDB57c7D02c089D75F50f0999930A6f8ce6) |
 | Farmon Token | `0xAA6053631ce6A48c63Cc94dB80cE03F26211403a` | [Blockscout](https://base-sepolia.blockscout.com/address/0xAA6053631ce6A48c63Cc94dB80cE03F26211403a) |

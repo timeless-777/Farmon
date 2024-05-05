@@ -79,16 +79,16 @@ contract Farmon is ERC721, ERC721URIStorage, ERC721Burnable, Ownable {
 
         string memory metaData = string(
             abi.encodePacked(
-                "data:application/json;base64,",
+                'data:application/json;base64,',
                 Base64.encode(
                     bytes(
                         abi.encodePacked(
-                            "{'name': 'Farmon #",
+                            '{"name": "Farmon #',
                             Strings.toString(tokenId),
-                            "', 'description': 'Farmon NFT', 'image': '",
+                            '", "description": "Farmon NFT", "image": "',
                             _baseUri,
-                            farmonCategory,
-                            "_farmon.png'}"
+                            Strings.toString(farmonCategory),
+                            '_farmon.png"}'
                         )
                     )
                 )
@@ -123,6 +123,11 @@ contract Farmon is ERC721, ERC721URIStorage, ERC721Burnable, Ownable {
         returns (string memory)
     {
         return super.tokenURI(tokenId);
+    }
+
+    /// @notice Get the total supply
+    function totalSupply() public view returns (uint256) {
+        return _nextTokenId;
     }
 
     /// @notice Supports the interface
